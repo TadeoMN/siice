@@ -12,24 +12,26 @@
       $to = "tadeo.mej@gmail.com";
 
       //Creamos cabecera.
-      $headers = "From:" . " " . $email . "\r\n";
+      $header = 'From: ' . $mail . " \r\n";
+      $header .= "X-Mailer: PHP/" . phpversion() . " \r\n";
+      $header .= "Mime-Version: 1.0 \r\n";
+      $header .= "Content-Type: text/plain";
 
-      //Componemos el cuerpo del correo.
-      $msnMail = "Nombre: " . $name;
-      $msnMail .= "\r\n";
-      $msnMail .= "Email: " . $email;
-      $msnMail .= "\r\n";
-      $msnMail .= "Asunto: " . $subject;
-      $msnMail .= "\r\n";
-      $msnMail .= "Mensaje: " . $message;
-      $msnMail .= "\r\n";
+      $msnMail = "Este mendaje fue enviado por: " . $name . ".\r\n\n";
+      $msnMail .= "Su email es: " . $mail . "\r\n\n";
+      $msnMail .= "Mensaje: " . $message . " \r\n\n";
+      $msnMail .= "Enviado el " . date('d/m/Y', time());
 
-    if (mail($to, $subject, $msnMail, $headers))
+      $to = 'tadeo.mej@gmail.com';
+      $subject = 'Mensaje de mi sitio web';
+
+    if (mail($to, $subject, utf8_decode($msnMail), $headers))
     {
       echo
       "<script language='javascript'>
         alert('Mensaje enviado, muchas gracias.');
       </script>";
+      header("Location:index.html");
     }
     else
     {
